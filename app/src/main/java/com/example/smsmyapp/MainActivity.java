@@ -1,17 +1,12 @@
 package com.example.smsmyapp;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import org.greenrobot.eventbus.EventBus;
@@ -38,21 +33,21 @@ public class MainActivity extends Activity {
     }
 
     public void onClickSend(View view) {
-            int position = adapter.getItemCount();
-            if (editTextName.getText().toString().length() > 2
-                    && editTextMsg.getText().toString().length() > 3) {
-                String nameStr = getString(R.string.you_to) + editTextName.getText().toString();
-                String msgStr = editTextMsg.getText().toString();
-                smsClasses.add(new SmsClass(nameStr, msgStr));
-                adapter.notifyItemInserted(position);
-                recyclerView.scrollToPosition(position);
-                SmsManager sms = SmsManager.getDefault();
-                sms.sendTextMessage(nameStr, null, msgStr, null, null);
-                onClickClear(view);
-            } else {
-                Toast.makeText(getBaseContext(),
-                        getString(R.string.check_file), Toast.LENGTH_SHORT).show();
-            }
+        int position = adapter.getItemCount();
+        if (editTextName.getText().toString().length() > 2
+                && editTextMsg.getText().toString().length() > 3) {
+            String nameStr = getString(R.string.you_to) + editTextName.getText().toString();
+            String msgStr = editTextMsg.getText().toString();
+            smsClasses.add(new SmsClass(nameStr, msgStr));
+            adapter.notifyItemInserted(position);
+            recyclerView.scrollToPosition(position);
+            SmsManager sms = SmsManager.getDefault();
+            sms.sendTextMessage(nameStr, null, msgStr, null, null);
+            onClickClear(view);
+        } else {
+            Toast.makeText(getBaseContext(),
+                    getString(R.string.check_file), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void onClickClear(View view) {
